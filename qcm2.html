@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>QCM 2 — La Boîte à merveilles, chapitres I à V (analyse)</title>
+<style>
+:root{
+  --bg:#f5efe4; --surface:#fffdf8; --ink:#1f2433; --muted:#5d6477; --line:#e2d8c4;
+  --hero:#233f8f; --brand:#233f8f; --brand-ink:#ffffff; --brand-soft:#e7ecf9;
+  --hint-bg:#fff3d6; --hint-line:#e0b84f; --hint-ink:#5e4200;
+  --ok:#1f7a4d; --ok-bg:#e3f4ea; --on-ok:#ffffff;
+  --bad:#b3372f; --bad-bg:#fbe8e5; --on-bad:#ffffff;
+  --shadow:0 1px 2px rgba(31,36,51,.06),0 10px 28px rgba(31,36,51,.07);
+  --serif:Georgia,"Iowan Old Style","Palatino Linotype",Palatino,"Times New Roman",serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#12151d; --surface:#1b2030; --ink:#eceff7; --muted:#a3abc0; --line:#2d3450;
+    --hero:#1b2f6e; --brand:#7f9bff; --brand-ink:#0d1431; --brand-soft:#242c4d;
+    --hint-bg:#352b12; --hint-line:#8a6d1f; --hint-ink:#f3d58a;
+    --ok:#58c48c; --ok-bg:#16301f; --on-ok:#0a2616;
+    --bad:#f28d85; --bad-bg:#3a1c1a; --on-bad:#3a0e0b;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.3);
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:17px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+
+.hero{background-color:var(--hero);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cpolygon points='32.00,6.00 36.78,20.45 50.38,13.62 43.55,27.22 58.00,32.00 43.55,36.78 50.38,50.38 36.78,43.55 32.00,58.00 27.22,43.55 13.62,50.38 20.45,36.78 6.00,32.00 20.45,27.22 13.62,13.62 27.22,20.45' fill='none' stroke='white' stroke-opacity='.16' stroke-width='1.2'/%3E%3Ccircle cx='0' cy='0' r='3' fill='white' fill-opacity='.10'/%3E%3Ccircle cx='64' cy='0' r='3' fill='white' fill-opacity='.10'/%3E%3Ccircle cx='0' cy='64' r='3' fill='white' fill-opacity='.10'/%3E%3Ccircle cx='64' cy='64' r='3' fill='white' fill-opacity='.10'/%3E%3C/svg%3E");color:#fff;padding:26px 0 62px}
+.kicker{margin:0 0 8px;font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;opacity:.85}
+.hero h1{font-family:var(--serif);font-size:clamp(1.65rem,5.4vw,2.35rem);line-height:1.15;margin:0 0 6px;font-weight:700}
+.hero .sub{margin:0;opacity:.9;font-size:.98rem}
+
+main{margin-top:-36px;padding-bottom:56px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:24px}
+@media (max-width:480px){.card{padding:18px}}
+.fade{animation:fade .25s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.fade{animation:none}.bar>i{transition:none}}
+
+h2{font-family:var(--serif);margin:0 0 10px;line-height:1.25}
+.intro h2{font-size:1.45rem}
+.intro p{margin:0 0 14px;color:var(--muted)}
+.rules{margin:0 0 18px;padding:0;list-style:none;display:grid;gap:10px}
+.rules li{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start}
+.rules .n{width:26px;height:26px;border-radius:50%;background:var(--brand-soft);color:var(--brand);font-weight:700;font-size:.85rem;display:grid;place-items:center}
+.scope{margin:0 0 20px}
+.scope h3{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:.8rem;font-weight:600;padding:3px 11px;border-radius:99px;background:var(--brand-soft);color:var(--brand)}
+.chip.ref{background:transparent;border:1px solid var(--line);color:var(--muted);font-weight:500}
+
+.top{display:flex;justify-content:space-between;gap:12px;font-size:.88rem;color:var(--muted);margin-bottom:8px}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:20px}
+.bar>i{display:block;height:100%;background:var(--brand);border-radius:99px;transition:width .35s ease}
+.qtext{font-size:1.28rem;margin:12px 0 18px;outline:none}
+@media (max-width:480px){.qtext{font-size:1.14rem}}
+
+.opts{display:grid;gap:10px;margin:0 0 16px;padding:0;border:0;min-width:0}
+.opt{position:relative;display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:start;
+  padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--surface);cursor:pointer;
+  transition:border-color .15s,background .15s,opacity .15s}
+.opt:hover{border-color:var(--brand)}
+.opt input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.opt .letter{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:.88rem;
+  background:var(--brand-soft);color:var(--brand)}
+.opt .txt{padding-top:3px}
+.opt .tag{display:block;margin-top:4px;font-size:.78rem;font-weight:700;letter-spacing:.02em}
+.opt:focus-within{outline:3px solid color-mix(in srgb,var(--brand) 45%,transparent);outline-offset:2px}
+.opt.sel{border-color:var(--brand);background:var(--brand-soft)}
+.opt.sel .letter{background:var(--brand);color:var(--brand-ink)}
+.opt.locked,.opt.locked input{cursor:default}
+.opt.locked:hover{border-color:var(--line)}
+.opt.correct{border-color:var(--ok);background:var(--ok-bg)}
+.opt.correct:hover{border-color:var(--ok)}
+.opt.correct .letter{background:var(--ok);color:var(--on-ok)}
+.opt.correct .tag{color:var(--ok)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.opt.wrong:hover{border-color:var(--bad)}
+.opt.wrong .letter{background:var(--bad);color:var(--on-bad)}
+.opt.wrong .tag{color:var(--bad)}
+.opt.dim{opacity:.62}
+
+.hint{margin:0 0 16px;padding:12px 14px;border-radius:12px;background:var(--hint-bg);border:1px solid var(--hint-line);color:var(--hint-ink)}
+.hint b{display:flex;align-items:center;gap:6px;font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px}
+.hint p{margin:0}
+.feedback{margin:0 0 16px;padding:14px 16px;border-radius:12px;border:1.5px solid;outline:none}
+.feedback.ok{background:var(--ok-bg);border-color:var(--ok)}
+.feedback.bad{background:var(--bad-bg);border-color:var(--bad)}
+.feedback .ft{margin:0 0 4px;font-weight:700;display:flex;align-items:center;gap:8px}
+.feedback.ok .ft{color:var(--ok)}
+.feedback.bad .ft{color:var(--bad)}
+.feedback p{margin:0 0 6px}
+.feedback .note{font-size:.85rem;color:var(--muted);margin:6px 0 0}
+
+.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.actions .spacer{flex:1}
+.btn{font:inherit;font-weight:600;font-size:.98rem;min-height:44px;padding:10px 18px;border-radius:10px;border:1.5px solid transparent;
+  cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:transform .08s,background .15s,border-color .15s,opacity .15s}
+.btn:active:not(:disabled){transform:translateY(1px)}
+.btn:focus-visible{outline:3px solid color-mix(in srgb,var(--brand) 50%,transparent);outline-offset:2px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.primary{background:var(--brand);color:var(--brand-ink)}
+.btn.primary:hover:not(:disabled){filter:brightness(1.08)}
+.btn.ghost{background:transparent;border-color:var(--line);color:var(--ink)}
+.btn.ghost:hover:not(:disabled){border-color:var(--brand)}
+.btn.hintbtn{background:var(--hint-bg);border-color:var(--hint-line);color:var(--hint-ink)}
+.btn.hintbtn:disabled{opacity:.6}
+.btn svg{flex:none}
+.kbd{margin:16px 0 0;font-size:.8rem;color:var(--muted)}
+@media (hover:none){.kbd{display:none}}
+
+/* résultats */
+.res h2{font-size:1.2rem;color:var(--muted);font-family:inherit;font-weight:600;margin-bottom:2px}
+.score{font-family:var(--serif);font-size:3.6rem;line-height:1;margin:4px 0 6px}
+.score small{font-size:1.5rem;color:var(--muted);font-weight:400}
+.msg{margin:0 0 18px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 22px}
+.stat{background:var(--brand-soft);border-radius:12px;padding:12px;text-align:center}
+.stat b{display:block;font-family:var(--serif);font-size:1.5rem;line-height:1.1}
+.stat span{font-size:.78rem;color:var(--muted);line-height:1.2;display:block;margin-top:3px}
+.res h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 10px}
+.grp{display:grid;grid-template-columns:minmax(120px,38%) 1fr auto;gap:10px;align-items:center;margin:0 0 8px;font-size:.92rem}
+.grp .gb{height:10px;border-radius:99px;background:var(--line);overflow:hidden}
+.grp .gb i{display:block;height:100%;background:var(--ok);border-radius:99px}
+.grp .gn{font-variant-numeric:tabular-nums;color:var(--muted);font-size:.85rem;min-width:2.8em;text-align:right}
+@media (max-width:480px){.grp{grid-template-columns:1fr auto;}.grp .gb{grid-column:1/-1;grid-row:2}}
+.review{margin:22px 0 22px;display:grid;gap:8px}
+.review details{border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.review summary{cursor:pointer;padding:11px 14px;display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;list-style:none;font-size:.95rem}
+.review summary::-webkit-details-marker{display:none}
+.review summary:focus-visible{outline:3px solid color-mix(in srgb,var(--brand) 50%,transparent);outline-offset:2px;border-radius:12px}
+.review .rb{padding:0 14px 14px 46px;font-size:.93rem}
+.review .rb p{margin:0 0 6px}
+.review .ico{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;margin-top:2px}
+.review .ico.ok{background:var(--ok);color:var(--on-ok)}
+.review .ico.bad{background:var(--bad);color:var(--on-bad)}
+.review .lbl{color:var(--muted);font-size:.8rem;display:block}
+.foot{margin-top:22px;text-align:center;font-size:.8rem;color:var(--muted)}
+noscript p{padding:16px}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">Ahmed Sefrioui · <i>La Boîte à merveilles</i></p>
+    <h1>QCM 2 · Analyser l’œuvre</h1>
+    <p class="sub">Chapitres I à V · 1re année du baccalauréat</p>
+  </div>
+</header>
+<main class="wrap" id="app"><noscript><div class="card"><p>Ce QCM a besoin de JavaScript pour fonctionner. Active-le dans ton navigateur puis recharge la page.</p></div></noscript></main>
+
+<script>
+(function(){
+"use strict";
+var META = {"introTitle": "Comprendre comment le texte fonctionne", "intro": "15 questions d’analyse sur la narration, l’imagination, la société décrite et les procédés d’écriture."};
+var Q = [{"g": "Narration et cadre", "ref": "Ch. I–II", "q": "Où se déroule l’essentiel de l’action, et dans quel type d’habitat ?", "opts": ["À Fès, dans une maison à patio où vivent plusieurs familles locataires.", "À Fès, dans une grande villa moderne occupée par la seule famille du narrateur.", "Dans un village de montagne, dans la ferme familiale.", "À Casablanca, dans un immeuble de la ville nouvelle."], "a": 0, "hint": "Les parents sont d’origine montagnarde, mais le père a dû s’installer en ville pour exercer un métier.", "exp": "Chapitre II : le père, d’origine montagnarde, s’est établi à Fès comme tisserand de couvertures. La famille occupe une chambre au deuxième étage de Dar Chouafa, autour d’un patio : la voyante vit au rez-de-chaussée, Rahma et sa famille au premier, Fatma Bziouya sur le même palier. Cette promiscuité explique que tout se sache dans la maison."}, {"g": "Narration et cadre", "ref": "Ch. I", "q": "Qui raconte l’histoire, et de quel point de vue ?", "opts": ["Un narrateur extérieur à l’histoire, qui raconte à la troisième personne.", "Le héros devenu adulte, qui évoque ses souvenirs d’enfance en disant « je » et en adoptant surtout le regard de l’enfant.", "Un enfant de six ans qui raconte au fur et à mesure ce qu’il vit, sans aucun recul.", "La mère du narrateur, qui raconte à ses voisines les événements de la journée."], "a": 1, "hint": "Relis les premières lignes du chapitre I : à quel moment de sa vie le narrateur se place-t-il pour raconter ? Que lui « reste-t-il » de son enfance ?", "exp": "Dès l’ouverture, un narrateur adulte, éveillé la nuit, évoque sa solitude et l’album de souvenirs qui lui reste : le récit est rétrospectif et à la première personne. Pourtant, la plupart des scènes sont vues à hauteur d’enfant (focalisation interne), ce qui explique la naïveté, l’humour et la poésie de nombreux passages."}, {"g": "Narration et cadre", "ref": "Ch. I", "q": "Comment le narrateur décrit-il son état d’enfant de six ans ?", "opts": ["Il est profondément malheureux, mal aimé de ses parents.", "Il est heureux : entouré de nombreux amis, il n’a besoin de rien.", "Il est un enfant seul, sans repère pour dire s’il est heureux ou malheureux.", "Il est révolté contre le monde des adultes et le rejette violemment."], "a": 2, "hint": "Il ne choisit ni « heureux », ni « malheureux » : cherche le mot qui, pour lui, résume sa condition.", "exp": "Chapitre I : à six ans, il n’est « ni heureux, ni malheureux » : c’est un enfant seul, qui n’a aucun point de repère pour nommer ce qu’il ressent. Cette solitude est un fil rouge du récit (l’image du petit garçon qui attend un moineau dans l’impasse, ses timides amitiés au Msid, son goût du rêve) ; elle explique son refuge dans la Boîte."}, {"g": "Imagination et Boîte", "ref": "Ch. I, III, V", "q": "Que représente la Boîte à Merveilles pour le narrateur ?", "opts": ["Un souvenir précieux de son père, qui la lui a fabriquée pour son anniversaire.", "Une réserve d’objets de valeur qu’il compte vendre pour aider sa famille.", "Un refuge imaginaire : en animant ses objets, l’enfant se crée des amis et un monde à lui, loin de la solitude et de la dureté des adultes.", "Un jouet ordinaire qui ne l’intéresse plus dès qu’il entre à l’école coranique."], "a": 2, "hint": "L’enfant dit de ces objets qu’ils sont ses seuls amis, prêts à le secourir dans ses heures de chagrin.", "exp": "Boutons, clous, boules de verre, cabochon, chaînette… L’enfant leur prête une âme et un langage, et s’y réfugie dès qu’il est seul, triste ou écrasé par le monde des adultes (pachas, juges, disputes de voisines). La Boîte est l’espace de liberté de son imagination."}, {"g": "Imagination et Boîte", "ref": "Ch. III", "q": "À la fin du chapitre III, l’enfant ouvre sa Boîte « avec d’infinies précautions » après la fête. Que montre cette scène ?", "opts": ["Les objets sont réellement magiques, mais seulement la nuit.", "La magie n’existe que dans l’imagination de l’enfant : à la lumière, les objets redeviennent de simples boutons et clous, et il pleure de déception.", "L’enfant se lasse de ses jouets et décide de les jeter.", "Sa mère découvre la Boîte et la lui confisque."], "a": 1, "hint": "Observe ce qui se passe une fois le couvercle refermé, puis ce qu’il découvre quand il l’ouvre pour mieux jouir du spectacle.", "exp": "Chapitre III : le soir de la fête, les objets restent d’abord inertes ; couvercle fermé, dans le noir, l’imagination de l’enfant en fait un palais, des princesses et des esclaves. Mais quand il rouvre la Boîte, l’enchantement disparaît : cabochon, boutons et clous sont « sans âme et sans mystère ». Cruelle découverte : le merveilleux dépend du regard intérieur de l’enfant."}, {"g": "Imagination et Boîte", "ref": "Ch. V", "q": "Dans son rêve (chapitre V), la Boîte à Merveilles devient un cercueil dans lequel l’enfant entre « tout heureux ». Que montre cette image ?", "opts": ["L’enfant exprime le désir réel de mourir pour échapper à l’école et aux disputes.", "L’enfant exprime sa colère contre ses parents, qui l’ont privé de sa Boîte.", "Le narrateur annonce qu’il mourra jeune, comme le coiffeur.", "L’imagination transforme la peur de la mort en un voyage merveilleux, escorté par des anges."], "a": 3, "hint": "Éveillé, l’enfant crie qu’il ne veut pas mourir ; que fait alors son imagination, une fois endormi ?", "exp": "Chapitre V : la mort du coiffeur nourrit l’angoisse de l’enfant (« Je ne veux pas mourir ! »), puis son imagination la transfigure : des anges aux ailes d’argent, une Boîte devenue cercueil, des palais d’émeraude, une fraîcheur de fleurs d’oranger. Le rêve console : la Boîte protège l’enfant même de la mort."}, {"g": "Société et croyances", "ref": "Ch. I–V", "q": "Comment le narrateur perçoit-il l’école coranique (le Msid) ?", "opts": ["Comme un lieu de jeux où il se fait de nombreux amis fidèles.", "Comme un lieu de contrainte et de peur : récitation par cœur, planchette, baguette de cognassier.", "Comme une école moderne où l’on apprend le français et le calcul.", "Comme un lieu de repos où le maître soigne les enfants malades."], "a": 1, "hint": "Pense aux mardis du narrateur, à la baguette du fqih et à la manière dont les enfants apprennent le Coran.", "exp": "Chapitres I à V : au Msid, on apprend le Coran par cœur sur une planchette, en criant, sous la menace de la baguette de cognassier. Le narrateur y connaît la peur (le mardi surtout, jour « néfaste ») et n’y noue que de timides amitiés. Les rares moments de joie viennent d’un congé ou d’un maître de bonne humeur, comme au chapitre V."}, {"g": "Société et croyances", "ref": "Ch. IV", "q": "Quelle opposition le narrateur établit-il entre son père et sa mère ?", "opts": ["Le père parle sans cesse et rit de tout ; la mère, silencieuse, passe ses journées à prier.", "Le père est autoritaire et brutal ; la mère, douce, protège toujours l’enfant.", "Le père parle peu et prie beaucoup ; la mère parle trop, prie moins et se montre plus gaie et plus amusante.", "Les deux parents sont également bavards et passent leur temps à se disputer."], "a": 2, "hint": "Au chapitre IV, chez Lalla Aïcha, l’enfant compare ses parents : qui est le plus silencieux ? Qui est le plus bavard ?", "exp": "Chapitre IV : le narrateur admire son père, beau, calme et pieux, que sa mère caricature en « l’Homme ». La mère, plus bavarde et plus vive, est « plus amusante, plus gaie ». Le père intervient peu mais veille sur l’enfant : il le console par des histoires et demande qu’on ne l’envoie pas au Msid quand il est fatigué."}, {"g": "Société et croyances", "ref": "Ch. I–V", "q": "Quelle image des femmes du quartier se dégage des cinq chapitres ?", "opts": ["Elles sont isolées et indifférentes les unes aux autres.", "Elles sont querelleuses, mais aussi très solidaires dans les joies et les malheurs.", "Elles sont soumises, silencieuses, et ne sortent jamais de chez elles.", "Elles sont toujours en conflit, sans aucune entraide."], "a": 1, "hint": "Compare la dispute du lundi (chapitre I) avec la disparition de Zineb (chapitre III) et la mort du coiffeur (chapitre V).", "exp": "Les femmes se querellent (la dispute du lundi), médisent et rivalisent, mais se retrouvent vite : elles pleurent ensemble la disparition de Zineb, aident Rahma pour le repas des pauvres, se rendent visite, accourent pour le deuil du coiffeur. Leur monde de terrasses, de patios et de commérages est à la fois rude et chaleureux."}, {"g": "Société et croyances", "ref": "Ch. I–V", "q": "Que révèlent les cinq premiers chapitres sur la place de la religion et des croyances ?", "opts": ["Une religion stricte qui rejette toute superstition et condamne la voyante.", "Une foi musulmane sincère (prière, Coran, saints, aumône) mêlée à des croyances populaires : voyante, jnouns, talismans, pèlerinages.", "Une indifférence presque complète : personne ne prie ni ne parle de Dieu.", "Une opposition violente entre la voyante et les fqihs, qui se combattent."], "a": 1, "hint": "Dans une même maison vivent une voyante qui évoque les jnouns et des familles qui récitent le Coran et visitent des saints : ces deux univers cohabitent-ils ?", "exp": "Dieu est invoqué dans toutes les formules de politesse, on récite la sourate d’ouverture, on offre un repas aux mendiants pour remercier Dieu, on visite Sidi Ali Boughaleb pour guérir ; mais on consulte aussi la chouafa, on craint les jnouns et le mauvais œil, on cherche des talismans. Le récit présente cette coexistence avec naturel, sans opposition entre les deux."}, {"g": "Société et croyances", "ref": "Ch. IV", "q": "Quel aspect de la société le procès de Moulay Larbi met-il en lumière ?", "opts": ["Une justice rapide et gratuite, rendue directement par le sultan.", "Une justice équitable : les experts de la corporation établissent toujours la vérité.", "Une justice ignorée de tous, que personne ne songe à saisir.", "Une justice lente, coûteuse et vénale, qui finit par sacrifier l’honnête homme."], "a": 3, "hint": "Compte les intermédiaires devant lesquels Moulay Larbi doit s’expliquer : un garde du pacha, le prévôt des marchands, les experts.", "exp": "Chapitre IV : un garde du pacha réclame une somme « fabuleuse » pour avoir « perdu son temps », un garde du prévôt n’obtient rien, puis les experts tranchent en faveur d’Abdelkader. La mère conclut qu’il n’y a plus de justice ; le père nuance : les juges sont des hommes, donc faillibles, et seul Dieu ne se trompe jamais. Le mot « pacha » fait trembler les petites gens."}, {"g": "Style et procédés", "ref": "Ch. I", "q": "« Ma mémoire était une cire fraîche » (chapitre I). Que signifie cette métaphore ?", "opts": ["Sa mémoire s’efface vite, comme la cire fond à la chaleur.", "Il se souvient surtout de l’odeur des bougies et du benjoin.", "La mémoire de l’enfant est très réceptive : les moindres événements s’y gravent durablement.", "Sa mémoire est froide et dure : il retient mal ce qu’on lui apprend."], "a": 2, "hint": "Que peut-on faire sur de la cire encore molle ? Pense à une empreinte.", "exp": "Chapitre I : la métaphore compare la mémoire de l’enfant à une cire encore molle, sur laquelle les moindres événements se gravent en « images ineffaçables ». Elle justifie la précision des souvenirs que raconte le narrateur adulte et lui permet d’évoquer l’« album » qui lui reste de son enfance."}, {"g": "Style et procédés", "ref": "Ch. II et V", "q": "Que révèlent les dialogues prêtés aux moineaux (chapitres II et V) et aux soufflets des voisines (chapitre V) ?", "opts": ["La personnification : l’imagination de l’enfant prête un langage aux animaux et aux objets, ce qui donne au récit sa poésie et son humour.", "La folie du narrateur, qui n’arrive plus à distinguer le réel de l’imaginaire.", "Le réalisme documentaire de l’auteur, qui note fidèlement les bruits de la maison.", "Une critique de la superstition : l’enfant se moque de ceux qui croient aux oiseaux parleurs."], "a": 0, "hint": "L’enfant affirme comprendre le langage des oiseaux et d’autres bêtes. Quelle figure consiste à faire parler ce qui ne parle pas ?", "exp": "Chapitres II et V : les moineaux qui vantent les figues sèches, les soufflets qui répètent « J’ai chaud ! » ou « Je souffre ! » sont des personnifications. Elles recréent le regard poétique de l’enfant et ajoutent une touche d’humour. Ce n’est ni de la folie, ni un simple relevé de bruits réels : c’est un procédé d’écriture."}, {"g": "Style et procédés", "ref": "Ch. IV", "q": "Un enfant dit à Abdallah qu’il a lu une histoire plus belle dans son livre de lecture. Abdallah répond en désignant son cœur. Que signifie sa réponse ?", "opts": ["Il refuse de lire et prétend que les livres sont dangereux.", "Il avoue qu’il a oublié son histoire et qu’il l’invente au hasard.", "Il veut dire qu’il n’aime que les histoires tristes, qui touchent le cœur.", "Son histoire vient de lui et n’existe que dans sa voix : contrairement au livre que tous possèdent, la parole du conteur est unique et vivante."], "a": 3, "hint": "Il oppose un livre que tous les camarades possèdent à l’unique « livre » qu’il montre du doigt : lequel est le seul de son espèce ?", "exp": "Chapitre IV : l’histoire du livre peut être lue par tous les élèves, alors que celle d’Abdallah n’est que dans un seul livre : son cœur. Il valorise ainsi la parole vivante et personnelle du conteur, c’est-à-dire la tradition orale. Notons l’emboîtement des voix : le narrateur rapporte ce que dit son père, qui rapporte ce que dit Abdallah, lui-même conteur — un récit enchâssé."}, {"g": "Style et procédés", "ref": "Ch. II", "q": "Chaque matin, la mère et Fatma Bziouya échangent les mêmes salutations d’une fenêtre à l’autre. Quel effet le narrateur souligne-t-il ?", "opts": ["Un échange passionné où chacune apprend du nouveau sur l’autre.", "Une querelle déguisée : chaque formule cache une insulte.", "Des formules rituelles et mécaniques : chacune récite son texte sans écouter l’autre, ce qui donne une note comique et ironique.", "Un code secret qui permet de transmettre des nouvelles au père."], "a": 2, "hint": "L’enfant remarque qu’elles posent des questions dont elles connaissent déjà les réponses et répètent les mêmes phrases depuis trois ans.", "exp": "Chapitre II : depuis trois ans, les deux voisines répètent chaque matin les mêmes formules sur un air monotone, sans s’écouter. Le narrateur dépeint avec une ironie tendre la politesse rituelle de la société féminine, que l’on retrouve dans les refus d’usage quand Fatma apporte des beignets (« Je ne puis accepter ! »)."}];
+var app = document.getElementById('app');
+var LET = ['A','B','C','D'];
+var state = null;
+
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function shuffle(a){var r=a.slice();for(var i=r.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=r[i];r[i]=r[j];r[j]=t;}return r;}
+function plural(n,s,p){return n+' '+(n>1?p:s);}
+
+var ICON = {
+  bulb:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.4 1.1 2.2h5c0-.8.4-1.6 1.1-2.2A6 6 0 0 0 12 3z"/></svg>',
+  check:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+  cross:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+  arrow:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
+};
+
+function newState(indices){
+  return {view:'intro', order: indices || Q.map(function(_,i){return i;}), pos:0, answers:{}};
+}
+function curQ(){return state.order[state.pos];}
+function curA(){
+  var qi = curQ();
+  if(!state.answers[qi]) state.answers[qi] = {order:shuffle([0,1,2,3]), picked:null, validated:false, hint:false, correct:false};
+  return state.answers[qi];
+}
+function toTop(){window.scrollTo({top:Math.max(0,app.offsetTop-20),behavior:'auto'});}
+
+/* ---------- Accueil ---------- */
+function renderIntro(){
+  state.view='intro';
+  var groups=[],counts={};
+  Q.forEach(function(q){if(!counts[q.g]){counts[q.g]=0;groups.push(q.g);}counts[q.g]++;});
+  app.innerHTML =
+   '<section class="card intro fade">'+
+     '<h2>'+esc(META.introTitle)+'</h2>'+
+     '<p>'+esc(META.intro)+'</p>'+
+     '<ul class="rules">'+
+       '<li><span class="n">1</span><span>Une seule bonne réponse par question. Les propositions changent de place à chaque essai.</span></li>'+
+       '<li><span class="n">2</span><span>Un doute ? Le bouton <b>Indice</b> te met sur la piste sans donner la réponse. Il est facultatif, mais ton bilan indique combien tu en as utilisé.</span></li>'+
+       '<li><span class="n">3</span><span>Après chaque validation, tu vois la bonne réponse et une explication qui renvoie au texte.</span></li>'+
+     '</ul>'+
+     '<div class="scope"><h3>Au programme</h3><div class="chips">'+
+       groups.map(function(g){return '<span class="chip">'+esc(g)+' · '+counts[g]+'</span>';}).join('')+
+     '</div></div>'+
+     '<button class="btn primary" id="start" type="button">Commencer le QCM '+ICON.arrow+'</button>'+
+   '</section>';
+  document.getElementById('start').addEventListener('click',function(){state.view='question';renderQuestion(true);});
+}
+
+/* ---------- Question ---------- */
+function renderQuestion(scroll){
+  var qi=curQ(), q=Q[qi], a=curA(), total=state.order.length;
+  var goodCount=0; state.order.forEach(function(i){var x=state.answers[i]; if(x&&x.validated&&x.correct) goodCount++;});
+  var pct = Math.round(state.pos/total*100);
+
+  var opts = a.order.map(function(o,k){
+    var cls='opt', tag='';
+    if(a.validated){
+      cls+=' locked';
+      if(o===q.a){cls+=' correct';tag='<span class="tag">✓ Bonne réponse</span>';}
+      else if(k===a.picked){cls+=' wrong';tag='<span class="tag">✗ Ta réponse</span>';}
+      else cls+=' dim';
+    } else if(k===a.picked){cls+=' sel';}
+    return '<label class="'+cls+'" data-k="'+k+'">'+
+      '<input type="radio" name="opt" value="'+k+'"'+(k===a.picked?' checked':'')+(a.validated?' disabled':'')+'>'+
+      '<span class="letter" aria-hidden="true">'+LET[k]+'</span>'+
+      '<span class="txt">'+esc(q.opts[o])+tag+'</span></label>';
+  }).join('');
+
+  var hintHtml = a.hint ? '<div class="hint fade" id="hintbox"><b>'+ICON.bulb+' Indice</b><p>'+esc(q.hint)+'</p></div>' : '';
+
+  var fb='';
+  if(a.validated){
+    var goodLetter = LET[a.order.indexOf(q.a)];
+    fb='<div class="feedback fade '+(a.correct?'ok':'bad')+'" id="fb" tabindex="-1" role="status">'+
+        '<p class="ft">'+(a.correct?ICON.check+' Bonne réponse !':ICON.cross+' Pas tout à fait.')+'</p>'+
+        (a.correct?'':'<p>La bonne réponse était la proposition <b>'+goodLetter+'</b>.</p>')+
+        '<p>'+esc(q.exp)+'</p>'+
+        (a.hint?'<p class="note">Tu as utilisé l’indice pour cette question.</p>':'')+
+      '</div>';
+  }
+
+  var last = state.pos===total-1;
+  var actions;
+  if(a.validated){
+    actions='<span class="spacer"></span><button class="btn primary" id="next" type="button">'+(last?'Voir mon résultat':'Question suivante')+' '+ICON.arrow+'</button>';
+  } else {
+    actions='<button class="btn hintbtn" id="hintbtn" type="button"'+(a.hint?' disabled':'')+'>'+ICON.bulb+(a.hint?' Indice affiché':' Indice')+'</button>'+
+            '<span class="spacer"></span>'+
+            '<button class="btn primary" id="validate" type="button"'+(a.picked===null?' disabled':'')+'>Valider</button>';
+  }
+
+  app.innerHTML =
+   '<section class="card fade" aria-labelledby="qt">'+
+     '<div class="top"><span>Question '+(state.pos+1)+' sur '+total+'</span><span>'+plural(goodCount,'bonne réponse','bonnes réponses')+'</span></div>'+
+     '<div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="'+total+'" aria-valuenow="'+state.pos+'"><i style="width:'+pct+'%"></i></div>'+
+     '<div class="chips"><span class="chip">'+esc(q.g)+'</span>'+(q.ref?'<span class="chip ref">'+esc(q.ref)+'</span>':'')+'</div>'+
+     '<h2 class="qtext" id="qt" tabindex="-1">'+esc(q.q)+'</h2>'+
+     '<fieldset class="opts" aria-labelledby="qt"><legend style="position:absolute;left:-9999px">Propositions</legend>'+opts+'</fieldset>'+
+     hintHtml+fb+
+     '<div class="actions">'+actions+'</div>'+
+     '<p class="kbd">Raccourcis : touches 1 à 4 (ou A à D) pour choisir, H pour l’indice, Entrée pour valider ou passer à la suite.</p>'+
+   '</section>';
+
+  bindQuestion();
+  if(scroll){toTop(); var t=document.getElementById('qt'); if(t) t.focus({preventScroll:true});}
+}
+
+function bindQuestion(){
+  var a=curA();
+  Array.prototype.forEach.call(app.querySelectorAll('.opt input'),function(inp){
+    inp.addEventListener('change',function(){select(parseInt(inp.value,10));});
+  });
+  var h=document.getElementById('hintbtn'); if(h) h.addEventListener('click',showHint);
+  var v=document.getElementById('validate'); if(v) v.addEventListener('click',validate);
+  var n=document.getElementById('next'); if(n) n.addEventListener('click',next);
+  if(a.validated){
+    var fb=document.getElementById('fb');
+    if(fb){fb.focus({preventScroll:true}); fb.scrollIntoView({block:'nearest',behavior:'smooth'});}
+  }
+}
+
+function select(k){
+  var a=curA(); if(a.validated||k<0||k>3) return;
+  a.picked=k;
+  Array.prototype.forEach.call(app.querySelectorAll('.opt'),function(el){
+    var on = parseInt(el.getAttribute('data-k'),10)===k;
+    el.classList.toggle('sel',on);
+    el.querySelector('input').checked = on;
+  });
+  var v=document.getElementById('validate'); if(v) v.disabled=false;
+}
+function showHint(){
+  var a=curA(); if(a.hint||a.validated) return;
+  a.hint=true;
+  var q=Q[curQ()];
+  var box=document.createElement('div');
+  box.className='hint fade'; box.id='hintbox';
+  box.innerHTML='<b>'+ICON.bulb+' Indice</b><p>'+esc(q.hint)+'</p>';
+  var acts=app.querySelector('.actions'); acts.parentNode.insertBefore(box,acts);
+  var h=document.getElementById('hintbtn'); h.disabled=true; h.innerHTML=ICON.bulb+' Indice affiché';
+}
+function validate(){
+  var a=curA(), q=Q[curQ()];
+  if(a.validated||a.picked===null) return;
+  a.validated=true; a.correct=(a.order[a.picked]===q.a);
+  renderQuestion(false);
+}
+function next(){
+  if(state.pos<state.order.length-1){state.pos++;renderQuestion(true);}
+  else{renderResults();}
+}
+
+/* ---------- Résultats ---------- */
+function renderResults(){
+  state.view='results';
+  var total=state.order.length, good=0, noHint=0, hints=0, wrongIdx=[];
+  var groups=[],gstat={};
+  state.order.forEach(function(qi){
+    var a=state.answers[qi], q=Q[qi];
+    if(!gstat[q.g]){gstat[q.g]={t:0,g:0};groups.push(q.g);}
+    gstat[q.g].t++;
+    if(a.hint) hints++;
+    if(a.correct){good++;gstat[q.g].g++; if(!a.hint) noHint++;} else wrongIdx.push(qi);
+  });
+  var ratio=good/total, msg;
+  if(ratio===1) msg='Sans faute : tu maîtrises très bien ces chapitres.';
+  else if(ratio>=0.8) msg='Très bon résultat. Relis les explications des questions manquées pour consolider.';
+  else if(ratio>=0.6) msg='Bon début. Reprends les passages liés aux questions manquées, puis refais le QCM.';
+  else if(ratio>=0.4) msg='Il reste du travail : relis les chapitres signalés ci-dessous, puis retente ta chance.';
+  else msg='Pas de panique : une relecture attentive des chapitres, et tu feras beaucoup mieux au prochain essai.';
+
+  var bars=groups.map(function(g){
+    var s=gstat[g], p=Math.round(s.g/s.t*100);
+    return '<div class="grp"><span>'+esc(g)+'</span><div class="gb" aria-hidden="true"><i style="width:'+p+'%"></i></div><span class="gn">'+s.g+' / '+s.t+'</span></div>';
+  }).join('');
+
+  var review=state.order.map(function(qi,n){
+    var a=state.answers[qi], q=Q[qi], ok=a.correct;
+    var yours=q.opts[a.order[a.picked]], goodTxt=q.opts[q.a];
+    return '<details'+(ok?'':' open')+'><summary><span class="ico '+(ok?'ok':'bad')+'">'+(ok?ICON.check:ICON.cross)+'</span>'+
+      '<span><span class="lbl">'+esc(q.g)+(q.ref?' · '+esc(q.ref):'')+' · '+(ok?'réussie':'à revoir')+(a.hint?' · indice utilisé':'')+'</span>'+(n+1)+'. '+esc(q.q)+'</span></summary>'+
+      '<div class="rb">'+
+        (ok?'':'<p><span class="lbl">Ta réponse</span>'+esc(yours)+'</p>')+
+        '<p><span class="lbl">Bonne réponse</span>'+esc(goodTxt)+'</p>'+
+        '<p>'+esc(q.exp)+'</p></div></details>';
+  }).join('');
+
+  app.innerHTML =
+   '<section class="card res fade">'+
+     '<h2 id="rt" tabindex="-1" style="outline:none">Ton résultat</h2>'+
+     '<div class="score">'+good+' <small>/ '+total+'</small></div>'+
+     '<p class="msg">'+esc(msg)+'</p>'+
+     '<div class="stats">'+
+       '<div class="stat"><b>'+good+'</b><span>bonnes réponses</span></div>'+
+       '<div class="stat"><b>'+noHint+'</b><span>réussies sans indice</span></div>'+
+       '<div class="stat"><b>'+hints+'</b><span>'+(hints>1?'indices utilisés':'indice utilisé')+'</span></div>'+
+     '</div>'+
+     '<h3>Bilan par thème</h3>'+bars+
+     '<div class="review"><h3 style="margin-top:18px">Correction détaillée</h3>'+review+'</div>'+
+     '<div class="actions">'+
+       (wrongIdx.length?'<button class="btn ghost" id="redo" type="button">Refaire les '+wrongIdx.length+' question'+(wrongIdx.length>1?'s':'')+' manquée'+(wrongIdx.length>1?'s':'')+'</button>':'')+
+       '<button class="btn primary" id="restart" type="button">Recommencer le QCM</button>'+
+     '</div>'+
+   '</section>';
+  document.getElementById('restart').addEventListener('click',function(){state=newState();state.view='question';renderQuestion(true);});
+  var r=document.getElementById('redo');
+  if(r) r.addEventListener('click',function(){state=newState(wrongIdx);state.view='question';renderQuestion(true);});
+  toTop(); document.getElementById('rt').focus({preventScroll:true});
+}
+
+/* ---------- Clavier ---------- */
+document.addEventListener('keydown',function(e){
+  if(e.ctrlKey||e.metaKey||e.altKey||state.view!=='question') return;
+  var a=curA(), k=(e.key||'').toLowerCase();
+  if(!a.validated && k.length===1){
+    var idx='1234'.indexOf(k); if(idx<0) idx='abcd'.indexOf(k);
+    if(idx>=0){e.preventDefault();select(idx);return;}
+    if(k==='h'){e.preventDefault();showHint();return;}
+  }
+  if(e.key==='Enter'){
+    var t=e.target; if(t && t.closest && t.closest('button,summary,a')) return;
+    e.preventDefault();
+    if(a.validated) next(); else if(a.picked!==null) validate();
+  }
+});
+
+state=newState();
+renderIntro();
+})();
+</script>
+</body>
+</html>

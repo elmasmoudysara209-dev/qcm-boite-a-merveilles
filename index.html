@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>QCM 1 — La Boîte à merveilles, chapitres I à V</title>
+<style>
+:root{
+  --bg:#f5efe4; --surface:#fffdf8; --ink:#1f2433; --muted:#5d6477; --line:#e2d8c4;
+  --hero:#233f8f; --brand:#233f8f; --brand-ink:#ffffff; --brand-soft:#e7ecf9;
+  --hint-bg:#fff3d6; --hint-line:#e0b84f; --hint-ink:#5e4200;
+  --ok:#1f7a4d; --ok-bg:#e3f4ea; --on-ok:#ffffff;
+  --bad:#b3372f; --bad-bg:#fbe8e5; --on-bad:#ffffff;
+  --shadow:0 1px 2px rgba(31,36,51,.06),0 10px 28px rgba(31,36,51,.07);
+  --serif:Georgia,"Iowan Old Style","Palatino Linotype",Palatino,"Times New Roman",serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#12151d; --surface:#1b2030; --ink:#eceff7; --muted:#a3abc0; --line:#2d3450;
+    --hero:#1b2f6e; --brand:#7f9bff; --brand-ink:#0d1431; --brand-soft:#242c4d;
+    --hint-bg:#352b12; --hint-line:#8a6d1f; --hint-ink:#f3d58a;
+    --ok:#58c48c; --ok-bg:#16301f; --on-ok:#0a2616;
+    --bad:#f28d85; --bad-bg:#3a1c1a; --on-bad:#3a0e0b;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.3);
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:17px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+
+.hero{background-color:var(--hero);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cpolygon points='32.00,6.00 36.78,20.45 50.38,13.62 43.55,27.22 58.00,32.00 43.55,36.78 50.38,50.38 36.78,43.55 32.00,58.00 27.22,43.55 13.62,50.38 20.45,36.78 6.00,32.00 20.45,27.22 13.62,13.62 27.22,20.45' fill='none' stroke='white' stroke-opacity='.16' stroke-width='1.2'/%3E%3Ccircle cx='0' cy='0' r='3' fill='white' fill-opacity='.10'/%3E%3Ccircle cx='64' cy='0' r='3' fill='white' fill-opacity='.10'/%3E%3Ccircle cx='0' cy='64' r='3' fill='white' fill-opacity='.10'/%3E%3Ccircle cx='64' cy='64' r='3' fill='white' fill-opacity='.10'/%3E%3C/svg%3E");color:#fff;padding:26px 0 62px}
+.kicker{margin:0 0 8px;font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;opacity:.85}
+.hero h1{font-family:var(--serif);font-size:clamp(1.65rem,5.4vw,2.35rem);line-height:1.15;margin:0 0 6px;font-weight:700}
+.hero .sub{margin:0;opacity:.9;font-size:.98rem}
+
+main{margin-top:-36px;padding-bottom:56px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:24px}
+@media (max-width:480px){.card{padding:18px}}
+.fade{animation:fade .25s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.fade{animation:none}.bar>i{transition:none}}
+
+h2{font-family:var(--serif);margin:0 0 10px;line-height:1.25}
+.intro h2{font-size:1.45rem}
+.intro p{margin:0 0 14px;color:var(--muted)}
+.rules{margin:0 0 18px;padding:0;list-style:none;display:grid;gap:10px}
+.rules li{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start}
+.rules .n{width:26px;height:26px;border-radius:50%;background:var(--brand-soft);color:var(--brand);font-weight:700;font-size:.85rem;display:grid;place-items:center}
+.scope{margin:0 0 20px}
+.scope h3{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:.8rem;font-weight:600;padding:3px 11px;border-radius:99px;background:var(--brand-soft);color:var(--brand)}
+.chip.ref{background:transparent;border:1px solid var(--line);color:var(--muted);font-weight:500}
+
+.top{display:flex;justify-content:space-between;gap:12px;font-size:.88rem;color:var(--muted);margin-bottom:8px}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:20px}
+.bar>i{display:block;height:100%;background:var(--brand);border-radius:99px;transition:width .35s ease}
+.qtext{font-size:1.28rem;margin:12px 0 18px;outline:none}
+@media (max-width:480px){.qtext{font-size:1.14rem}}
+
+.opts{display:grid;gap:10px;margin:0 0 16px;padding:0;border:0;min-width:0}
+.opt{position:relative;display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:start;
+  padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--surface);cursor:pointer;
+  transition:border-color .15s,background .15s,opacity .15s}
+.opt:hover{border-color:var(--brand)}
+.opt input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.opt .letter{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:.88rem;
+  background:var(--brand-soft);color:var(--brand)}
+.opt .txt{padding-top:3px}
+.opt .tag{display:block;margin-top:4px;font-size:.78rem;font-weight:700;letter-spacing:.02em}
+.opt:focus-within{outline:3px solid color-mix(in srgb,var(--brand) 45%,transparent);outline-offset:2px}
+.opt.sel{border-color:var(--brand);background:var(--brand-soft)}
+.opt.sel .letter{background:var(--brand);color:var(--brand-ink)}
+.opt.locked,.opt.locked input{cursor:default}
+.opt.locked:hover{border-color:var(--line)}
+.opt.correct{border-color:var(--ok);background:var(--ok-bg)}
+.opt.correct:hover{border-color:var(--ok)}
+.opt.correct .letter{background:var(--ok);color:var(--on-ok)}
+.opt.correct .tag{color:var(--ok)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.opt.wrong:hover{border-color:var(--bad)}
+.opt.wrong .letter{background:var(--bad);color:var(--on-bad)}
+.opt.wrong .tag{color:var(--bad)}
+.opt.dim{opacity:.62}
+
+.hint{margin:0 0 16px;padding:12px 14px;border-radius:12px;background:var(--hint-bg);border:1px solid var(--hint-line);color:var(--hint-ink)}
+.hint b{display:flex;align-items:center;gap:6px;font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px}
+.hint p{margin:0}
+.feedback{margin:0 0 16px;padding:14px 16px;border-radius:12px;border:1.5px solid;outline:none}
+.feedback.ok{background:var(--ok-bg);border-color:var(--ok)}
+.feedback.bad{background:var(--bad-bg);border-color:var(--bad)}
+.feedback .ft{margin:0 0 4px;font-weight:700;display:flex;align-items:center;gap:8px}
+.feedback.ok .ft{color:var(--ok)}
+.feedback.bad .ft{color:var(--bad)}
+.feedback p{margin:0 0 6px}
+.feedback .note{font-size:.85rem;color:var(--muted);margin:6px 0 0}
+
+.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.actions .spacer{flex:1}
+.btn{font:inherit;font-weight:600;font-size:.98rem;min-height:44px;padding:10px 18px;border-radius:10px;border:1.5px solid transparent;
+  cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:transform .08s,background .15s,border-color .15s,opacity .15s}
+.btn:active:not(:disabled){transform:translateY(1px)}
+.btn:focus-visible{outline:3px solid color-mix(in srgb,var(--brand) 50%,transparent);outline-offset:2px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.primary{background:var(--brand);color:var(--brand-ink)}
+.btn.primary:hover:not(:disabled){filter:brightness(1.08)}
+.btn.ghost{background:transparent;border-color:var(--line);color:var(--ink)}
+.btn.ghost:hover:not(:disabled){border-color:var(--brand)}
+.btn.hintbtn{background:var(--hint-bg);border-color:var(--hint-line);color:var(--hint-ink)}
+.btn.hintbtn:disabled{opacity:.6}
+.btn svg{flex:none}
+.kbd{margin:16px 0 0;font-size:.8rem;color:var(--muted)}
+@media (hover:none){.kbd{display:none}}
+
+/* résultats */
+.res h2{font-size:1.2rem;color:var(--muted);font-family:inherit;font-weight:600;margin-bottom:2px}
+.score{font-family:var(--serif);font-size:3.6rem;line-height:1;margin:4px 0 6px}
+.score small{font-size:1.5rem;color:var(--muted);font-weight:400}
+.msg{margin:0 0 18px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 22px}
+.stat{background:var(--brand-soft);border-radius:12px;padding:12px;text-align:center}
+.stat b{display:block;font-family:var(--serif);font-size:1.5rem;line-height:1.1}
+.stat span{font-size:.78rem;color:var(--muted);line-height:1.2;display:block;margin-top:3px}
+.res h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 10px}
+.grp{display:grid;grid-template-columns:minmax(120px,38%) 1fr auto;gap:10px;align-items:center;margin:0 0 8px;font-size:.92rem}
+.grp .gb{height:10px;border-radius:99px;background:var(--line);overflow:hidden}
+.grp .gb i{display:block;height:100%;background:var(--ok);border-radius:99px}
+.grp .gn{font-variant-numeric:tabular-nums;color:var(--muted);font-size:.85rem;min-width:2.8em;text-align:right}
+@media (max-width:480px){.grp{grid-template-columns:1fr auto;}.grp .gb{grid-column:1/-1;grid-row:2}}
+.review{margin:22px 0 22px;display:grid;gap:8px}
+.review details{border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.review summary{cursor:pointer;padding:11px 14px;display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;list-style:none;font-size:.95rem}
+.review summary::-webkit-details-marker{display:none}
+.review summary:focus-visible{outline:3px solid color-mix(in srgb,var(--brand) 50%,transparent);outline-offset:2px;border-radius:12px}
+.review .rb{padding:0 14px 14px 46px;font-size:.93rem}
+.review .rb p{margin:0 0 6px}
+.review .ico{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;margin-top:2px}
+.review .ico.ok{background:var(--ok);color:var(--on-ok)}
+.review .ico.bad{background:var(--bad);color:var(--on-bad)}
+.review .lbl{color:var(--muted);font-size:.8rem;display:block}
+.foot{margin-top:22px;text-align:center;font-size:.8rem;color:var(--muted)}
+noscript p{padding:16px}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">Ahmed Sefrioui · <i>La Boîte à merveilles</i></p>
+    <h1>QCM 1 · Comprendre le récit</h1>
+    <p class="sub">Chapitres I à V · 1re année du baccalauréat</p>
+  </div>
+</header>
+<main class="wrap" id="app"><noscript><div class="card"><p>Ce QCM a besoin de JavaScript pour fonctionner. Active-le dans ton navigateur puis recharge la page.</p></div></noscript></main>
+
+<script>
+(function(){
+"use strict";
+var META = {"introTitle": "Ai-je bien lu les cinq premiers chapitres ?", "intro": "15 questions sur les événements, les personnages et les lieux, à raison de trois questions par chapitre."};
+var Q = [{"g": "Chapitre I", "ref": "", "q": "Comment s’appelle la maison où habite la famille du narrateur ?", "opts": ["Dar Chouafa, la maison de la voyante", "Dar Kitoun, la maison des Idrissides", "Dar Moulay Larbi, la maison du babouchier", "Dar Sidi Ali, la maison du saint guérisseur"], "a": 0, "hint": "Le nom de la maison renvoie au métier d’une locataire du rez-de-chaussée, qui reçoit des clientes de tous les quartiers.", "exp": "Chapitre I : la famille habite Dar Chouafa, la maison de la voyante. La chouafa (tante Kanza) occupe le rez-de-chaussée ; Rahma et sa famille vivent au premier étage, le narrateur et Fatma Bziouya au deuxième. Dar Kitoun est la maison d’accueil où l’on retrouvera Zineb au chapitre III."}, {"g": "Chapitre I", "ref": "", "q": "Quand sa mère lui parle d’aller au bain maure, l’enfant répond qu’il ne veut pas aller en Enfer. Pourquoi ?", "opts": ["Il confond le brouhaha de voix de femmes et de pleurs d’enfants qui s’échappe du bain avec les voix de l’Enfer décrites par son père.", "Il croit que le fqih l’attend au bain maure pour le punir de ses fautes.", "Il a déjà été brûlé par l’eau bouillante lors d’une précédente visite.", "Sa mère l’a menacé de l’y envoyer s’il n’apprenait pas ses versets."], "a": 0, "hint": "Rappelle-toi le bruit continu qui s’échappe d’une porte basse de la rue Jiaf, près de l’école, et ce que son père lui avait dit de l’Enfer.", "exp": "Chapitre I : l’enfant a déjà éclaté en sanglots en entendant ce vacarme de voix féminines et de cris d’enfants, où il a reconnu les voix de l’Enfer évoquées par son père. Quand sa mère, pour le calmer, lui parle d’un bain, il fait aussitôt le rapprochement. Sa mère, désarmée par tant de naïveté, lève les yeux au ciel."}, {"g": "Chapitre I", "ref": "", "q": "Quel événement déclenche la grande dispute entre la mère du narrateur et Rahma ?", "opts": ["Rahma fait sa lessive un lundi, jour que la mère se réserve, et la mère l’accuse d’avoir sali son linge propre.", "Rahma a pris sans permission la Boîte à Merveilles du narrateur.", "Zineb a frappé le narrateur devant toutes les voisines.", "Rahma s’est moquée de la cuisine de la mère devant le père."], "a": 0, "hint": "Pense au linge fraîchement lavé de la mère et au jour de la semaine qu’elle considère comme « le sien ».", "exp": "Chapitre I : le lundi appartient « exclusivement » à la mère pour la lessive. Quand Rahma étend son linge ce jour-là, la mère l’accuse d’avoir souillé le sien, et les insultes pleuvent, bientôt reprises par toute la maison. Le vacarme devient tel que l’enfant s’évanouit aux pieds de sa mère."}, {"g": "Chapitre II", "ref": "", "q": "Pourquoi Lalla Aïcha propose-t-elle d’emmener l’enfant au sanctuaire de Sidi Ali Boughaleb ?", "opts": ["Pour qu’il boive l’eau du sanctuaire et retrouve gaieté et force, car il est pâle et supporte mal le Msid.", "Pour qu’il y apprenne par cœur de nouveaux versets du Coran.", "Pour acheter des talismans destinés à protéger la maison des jnouns.", "Pour le faire consulter par la chouafa, installée près du mausolée."], "a": 0, "hint": "Lalla Aïcha remarque d’abord l’état de l’enfant, puis pense à ce que l’on peut faire de l’eau du sanctuaire.", "exp": "Chapitre II : la visiteuse remarque la pâleur du garçon. La mère l’attribue au mauvais œil ; Lalla Aïcha conseille de lui faire boire l’eau du sanctuaire, comme elle-même s’est guérie de ses douleurs grâce au saint. La mère promet d’y aller l’après-midi même."}, {"g": "Chapitre II", "ref": "", "q": "Que lui arrive-t-il quand il s’éloigne du groupe de femmes dans le sanctuaire ?", "opts": ["Un gros chat qu’il voulait caresser le griffe à la main.", "Il se perd dans la foule et on le ramène dans les bras d’un inconnu.", "Il tombe dans l’un des grands vases remplis d’eau.", "Un âne le renverse devant l’entrée du mausolée."], "a": 0, "hint": "Le saint aimait tout particulièrement une espèce animale, et le sanctuaire en héberge plus de cinquante.", "exp": "Chapitre II : le narrateur va caresser un gros matou aux yeux jaunes, qui ronronne puis le griffe jusqu’au sang. Il hurle jusqu’à la maison, et gardera de cette mésaventure une méfiance envers les chats qui ronronnent au soleil."}, {"g": "Chapitre II", "ref": "", "q": "Quel objet Rahma glisse-t-elle dans la main de l’enfant, dans l’escalier ?", "opts": ["Un gros cabochon de verre à facettes, taillé comme un diamant.", "Un bouton de porcelaine finement décoré.", "Une chaînette de cuivre rongée de vert-de-gris.", "Un petit cadenas sans clef."], "a": 0, "hint": "L’objet est lisse et froid ; l’enfant se demande s’il vient du monde de l’Invisible, s’il est un talisman ou une pierre maudite.", "exp": "Chapitre II : Rahma, pourtant brouillée avec la mère, offre un cabochon de verre. L’enfant y voit un trésor et le rangera dans sa Boîte à Merveilles ; sa mère, elle, n’y voit qu’un bout de verre. La chaînette de cuivre est un autre objet : c’est la mère qui l’offre, au chapitre V."}, {"g": "Chapitre III", "ref": "", "q": "Comment la mère obtient-elle une lampe à pétrole, comme celle de Fatma Bziouya ?", "opts": ["Elle critique les bougies devant son mari et dit que les gens « bien » s’éclairent au pétrole ; le lendemain, la lampe est là.", "Elle supplie son mari, en larmes, de lui en acheter une.", "Elle vend un de ses bijoux pour l’acheter elle-même au souk.", "Fatma Bziouya lui offre sa propre lampe par amitié."], "a": 0, "hint": "Elle ne demande rien directement : écoute ce qu’elle dit des bougies pendant le thé, puis regarde ce que fait Driss le lendemain matin.", "exp": "Chapitre III : après avoir admiré la lampe de la voisine, la mère déclare au dîner que les bougies sont de moins bonne qualité, qu’il en faut une tous les trois jours et que la pièce paraît lugubre. Le père reste muet, mais Driss le teigneux rapporte une lampe, du pétrole et un entonnoir. L’enfant admire l’habileté de sa mère."}, {"g": "Chapitre III", "ref": "", "q": "Où retrouve-t-on Zineb, perdue dans la foule lors d’une sortie avec sa mère ?", "opts": ["À Dar Kitoun, la maison des Idrissides à Moulay Idriss, où une moqqadama l’avait recueillie.", "Chez sa tante Khadija, à Kalklyine, où elle était invitée à un baptême.", "Chez le marchand de poissons de Rsif, qui la gardait dans sa boutique.", "Au tribunal du pacha, où les crieurs publics l’avaient conduite."], "a": 0, "hint": "Deux voisines se rendent dans une ville sainte pour prier les saints ; c’est là qu’une vieille femme les met sur la piste.", "exp": "Chapitre III : Rahma perd sa fille dans la cohue de Rsif. Fatma Bziouya et la mère vont prier à Moulay Idriss ; une vieille femme les conduit à Dar Kitoun, lieu d’asile des abandonnées, où la moqqadama avait nourri Zineb. La mère raconte toute l’histoire à son mari à l’heure du thé."}, {"g": "Chapitre III", "ref": "", "q": "Tout le monde pleure la disparition de Zineb. Quelle raison le narrateur finit-il par avouer à sa mère ?", "opts": ["Il pleure tout simplement parce qu’il a faim.", "Il aime beaucoup Zineb et la croit perdue pour toujours.", "Il a peur que les démons se vengent sur lui.", "Il a mal à la tête à cause du bruit."], "a": 0, "hint": "La raison est très concrète et n’a rien à voir avec Zineb : pense à l’heure du repas.", "exp": "Chapitre III : il pleure d’abord pour faire comme tout le monde (la bienséance l’exige), ensuite parce que sa mère et Rahma pleurent ; mais sa vraie raison, avouée à sa mère furieuse, c’est la faim. L’effet est comique : le regard naïf de l’enfant dégonfle l’émotion collective."}, {"g": "Chapitre IV", "ref": "", "q": "Chez Lalla Aïcha, à quoi les enfants jouent-ils sur la terrasse, et comment le jeu se termine-t-il ?", "opts": ["Ils jouent à la mariée ; un garçon jette de la terre au visage de la « mariée » et tout finit en cris et en bagarre.", "Ils jouent au pacha ; le narrateur est « condamné » et enfermé dans la pièce aux provisions.", "Ils jouent à la lessive ; la plus grande renverse un seau d’eau sur le narrateur.", "Ils jouent à cache-cache ; le narrateur se perd dans la maison et reste seul toute la journée."], "a": 0, "hint": "Après un salon de thé imaginaire, les enfants se distribuent les rôles d’une cérémonie : la plus petite est maquillée, la plus grande dirige.", "exp": "Chapitre IV : après un thé imaginaire, les enfants jouent à la mariée ; l’aînée tient le rôle de la negafa, qui habille et maquille la jeune fiancée. Un garçon, par méchanceté, jette une poignée de terre à la « mariée » : le drame éclate, et une femme remonte pour ramener le narrateur à sa mère, sous son bras, comme un paquet."}, {"g": "Chapitre IV", "ref": "", "q": "Quel malheur frappe Moulay Larbi, le mari de Lalla Aïcha ?", "opts": ["Son associé Abdelkader nie la somme qu’il lui a prêtée sans reconnaissance de dette, et les experts de la corporation lui donnent raison.", "Son atelier de babouches brûle et il ne peut plus payer ses dettes.", "Il est arrêté par le pacha pour impôts impayés.", "Abdelkader s’enfuit de Fès avec l’argent de la dot, sans laisser d’adresse."], "a": 0, "hint": "Rappelle-toi l’argent avancé pour la dot du mariage d’Abdelkader et le papier qui n’a jamais été signé.", "exp": "Chapitre IV : Moulay Larbi, babouchier, avait aidé son ouvrier Abdelkader (quatre-vingts rials pour la dot, puis une association) sans exiger de reconnaissance de dette. Abdelkader a tout nié et prétendu avoir financé la moitié du matériel. Au chapitre V, Lalla Aïcha vend bijoux et mobilier pour permettre à son mari d’installer un nouvel atelier."}, {"g": "Chapitre IV", "ref": "", "q": "Qui est Abdallah, dont le père parle longuement au narrateur ?", "opts": ["Un épicier de Haffarine qui vend presque rien mais raconte sans fin des histoires.", "Un forgeron qui défend ses amis à coups de sermons.", "Le fqih de l’école coranique, réputé pour sa sévérité.", "Un marchand d’épices très riche qui ne parle jamais à ses clients."], "a": 0, "hint": "C’est le père qui le décrit : sa boutique est poussiéreuse, ses clients sont rares, mais il a beaucoup d’auditeurs.", "exp": "Chapitre IV : le père brosse le portrait d’Abdallah, assis en tailleur sur sa peau de mouton, balançant son chasse-mouches au rythme de ses récits. Les uns l’admirent (sage, poète, voyant), d’autres le traitent de menteur ou de sorcier. Le narrateur lui attribue toutes les histoires merveilleuses qu’il a entendues."}, {"g": "Chapitre V", "ref": "", "q": "Le fqih annonce la fête de l’Achoura. Que doit apporter chaque élève ?", "opts": ["Un bol d’huile d’olive pour alimenter les lampes de l’école.", "Une bougie de cire pour éclairer le Msid.", "Des gâteaux de semoule pour le maître.", "Une pièce d’argent pour le fqih."], "a": 0, "hint": "Le Msid doit être illuminé à partir de minuit : de quoi les lampes ont-elles besoin ?", "exp": "Chapitre V : l’Achoura (fête du Nouvel An) sera célébrée au Msid, illuminé dès minuit. Chaque élève apporte de quoi remplir un bol d’huile d’olive ; l’école sera blanchie à la chaux et les vieilles nattes remplacées. Ce jour-là, le fqih est de si bonne humeur qu’il ne distribue aucun coup de baguette."}, {"g": "Chapitre V", "ref": "", "q": "Quel est le défunt pleuré par les femmes de la maison voisine ?", "opts": ["Sidi Mohammed ben Tahar, le coiffeur, malade depuis deux mois.", "Allal, le jardinier, mari de Fatma Bziouya.", "Moulay Larbi, le mari de Lalla Aïcha.", "Le fqih de l’école coranique."], "a": 0, "hint": "C’est une vieille femme noire, perchée sur le mur de la terrasse, qui annonce le nom du mort aux autres femmes.", "exp": "Chapitre V : des cris montent de la maison voisine ; une vieille femme noire annonce la mort du coiffeur, bien connu dans l’impasse. La mère passe par-dessus le mur pour pleurer avec les pleureuses ; l’enfant insiste pour l’accompagner (et reçoit une gifle avant que Rahma n’intervienne)."}, {"g": "Chapitre V", "ref": "", "q": "Pourquoi le narrateur se bat-il avec Zineb à la fin du chapitre V ?", "opts": ["Le chat de Zineb s’est enfui avec la chaînette ; l’enfant, persuadé que Zineb l’a envoyé la voler, se jette sur elle.", "Zineb a cassé le cabochon de verre de sa Boîte à Merveilles.", "Zineb s’est moquée de lui parce qu’il n’a pas pleuré aux funérailles du coiffeur.", "Zineb a mangé le beignet que sa mère avait préparé pour lui."], "a": 0, "hint": "Un animal est en cause, celui de Zineb, ainsi qu’un bijou que l’enfant venait de fabriquer lui-même.", "exp": "Chapitre V : l’enfant nettoie la chaînette avec du sable ; elle devient « or pur » à ses yeux, et il en fait un collier pour le chat de Zineb. L’animal s’enfuit avec ; l’enfant accuse Zineb de l’avoir chargé de lui voler son plus beau bijou. La bagarre est générale, jusqu’à ce que la mère lui plonge la tête dans un seau d’eau."}];
+var app = document.getElementById('app');
+var LET = ['A','B','C','D'];
+var state = null;
+
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function shuffle(a){var r=a.slice();for(var i=r.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=r[i];r[i]=r[j];r[j]=t;}return r;}
+function plural(n,s,p){return n+' '+(n>1?p:s);}
+
+var ICON = {
+  bulb:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.4 1.1 2.2h5c0-.8.4-1.6 1.1-2.2A6 6 0 0 0 12 3z"/></svg>',
+  check:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+  cross:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+  arrow:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
+};
+
+function newState(indices){
+  return {view:'intro', order: indices || Q.map(function(_,i){return i;}), pos:0, answers:{}};
+}
+function curQ(){return state.order[state.pos];}
+function curA(){
+  var qi = curQ();
+  if(!state.answers[qi]) state.answers[qi] = {order:shuffle([0,1,2,3]), picked:null, validated:false, hint:false, correct:false};
+  return state.answers[qi];
+}
+function toTop(){window.scrollTo({top:Math.max(0,app.offsetTop-20),behavior:'auto'});}
+
+/* ---------- Accueil ---------- */
+function renderIntro(){
+  state.view='intro';
+  var groups=[],counts={};
+  Q.forEach(function(q){if(!counts[q.g]){counts[q.g]=0;groups.push(q.g);}counts[q.g]++;});
+  app.innerHTML =
+   '<section class="card intro fade">'+
+     '<h2>'+esc(META.introTitle)+'</h2>'+
+     '<p>'+esc(META.intro)+'</p>'+
+     '<ul class="rules">'+
+       '<li><span class="n">1</span><span>Une seule bonne réponse par question. Les propositions changent de place à chaque essai.</span></li>'+
+       '<li><span class="n">2</span><span>Un doute ? Le bouton <b>Indice</b> te met sur la piste sans donner la réponse. Il est facultatif, mais ton bilan indique combien tu en as utilisé.</span></li>'+
+       '<li><span class="n">3</span><span>Après chaque validation, tu vois la bonne réponse et une explication qui renvoie au texte.</span></li>'+
+     '</ul>'+
+     '<div class="scope"><h3>Au programme</h3><div class="chips">'+
+       groups.map(function(g){return '<span class="chip">'+esc(g)+' · '+counts[g]+'</span>';}).join('')+
+     '</div></div>'+
+     '<button class="btn primary" id="start" type="button">Commencer le QCM '+ICON.arrow+'</button>'+
+   '</section>';
+  document.getElementById('start').addEventListener('click',function(){state.view='question';renderQuestion(true);});
+}
+
+/* ---------- Question ---------- */
+function renderQuestion(scroll){
+  var qi=curQ(), q=Q[qi], a=curA(), total=state.order.length;
+  var goodCount=0; state.order.forEach(function(i){var x=state.answers[i]; if(x&&x.validated&&x.correct) goodCount++;});
+  var pct = Math.round(state.pos/total*100);
+
+  var opts = a.order.map(function(o,k){
+    var cls='opt', tag='';
+    if(a.validated){
+      cls+=' locked';
+      if(o===q.a){cls+=' correct';tag='<span class="tag">✓ Bonne réponse</span>';}
+      else if(k===a.picked){cls+=' wrong';tag='<span class="tag">✗ Ta réponse</span>';}
+      else cls+=' dim';
+    } else if(k===a.picked){cls+=' sel';}
+    return '<label class="'+cls+'" data-k="'+k+'">'+
+      '<input type="radio" name="opt" value="'+k+'"'+(k===a.picked?' checked':'')+(a.validated?' disabled':'')+'>'+
+      '<span class="letter" aria-hidden="true">'+LET[k]+'</span>'+
+      '<span class="txt">'+esc(q.opts[o])+tag+'</span></label>';
+  }).join('');
+
+  var hintHtml = a.hint ? '<div class="hint fade" id="hintbox"><b>'+ICON.bulb+' Indice</b><p>'+esc(q.hint)+'</p></div>' : '';
+
+  var fb='';
+  if(a.validated){
+    var goodLetter = LET[a.order.indexOf(q.a)];
+    fb='<div class="feedback fade '+(a.correct?'ok':'bad')+'" id="fb" tabindex="-1" role="status">'+
+        '<p class="ft">'+(a.correct?ICON.check+' Bonne réponse !':ICON.cross+' Pas tout à fait.')+'</p>'+
+        (a.correct?'':'<p>La bonne réponse était la proposition <b>'+goodLetter+'</b>.</p>')+
+        '<p>'+esc(q.exp)+'</p>'+
+        (a.hint?'<p class="note">Tu as utilisé l’indice pour cette question.</p>':'')+
+      '</div>';
+  }
+
+  var last = state.pos===total-1;
+  var actions;
+  if(a.validated){
+    actions='<span class="spacer"></span><button class="btn primary" id="next" type="button">'+(last?'Voir mon résultat':'Question suivante')+' '+ICON.arrow+'</button>';
+  } else {
+    actions='<button class="btn hintbtn" id="hintbtn" type="button"'+(a.hint?' disabled':'')+'>'+ICON.bulb+(a.hint?' Indice affiché':' Indice')+'</button>'+
+            '<span class="spacer"></span>'+
+            '<button class="btn primary" id="validate" type="button"'+(a.picked===null?' disabled':'')+'>Valider</button>';
+  }
+
+  app.innerHTML =
+   '<section class="card fade" aria-labelledby="qt">'+
+     '<div class="top"><span>Question '+(state.pos+1)+' sur '+total+'</span><span>'+plural(goodCount,'bonne réponse','bonnes réponses')+'</span></div>'+
+     '<div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="'+total+'" aria-valuenow="'+state.pos+'"><i style="width:'+pct+'%"></i></div>'+
+     '<div class="chips"><span class="chip">'+esc(q.g)+'</span>'+(q.ref?'<span class="chip ref">'+esc(q.ref)+'</span>':'')+'</div>'+
+     '<h2 class="qtext" id="qt" tabindex="-1">'+esc(q.q)+'</h2>'+
+     '<fieldset class="opts" aria-labelledby="qt"><legend style="position:absolute;left:-9999px">Propositions</legend>'+opts+'</fieldset>'+
+     hintHtml+fb+
+     '<div class="actions">'+actions+'</div>'+
+     '<p class="kbd">Raccourcis : touches 1 à 4 (ou A à D) pour choisir, H pour l’indice, Entrée pour valider ou passer à la suite.</p>'+
+   '</section>';
+
+  bindQuestion();
+  if(scroll){toTop(); var t=document.getElementById('qt'); if(t) t.focus({preventScroll:true});}
+}
+
+function bindQuestion(){
+  var a=curA();
+  Array.prototype.forEach.call(app.querySelectorAll('.opt input'),function(inp){
+    inp.addEventListener('change',function(){select(parseInt(inp.value,10));});
+  });
+  var h=document.getElementById('hintbtn'); if(h) h.addEventListener('click',showHint);
+  var v=document.getElementById('validate'); if(v) v.addEventListener('click',validate);
+  var n=document.getElementById('next'); if(n) n.addEventListener('click',next);
+  if(a.validated){
+    var fb=document.getElementById('fb');
+    if(fb){fb.focus({preventScroll:true}); fb.scrollIntoView({block:'nearest',behavior:'smooth'});}
+  }
+}
+
+function select(k){
+  var a=curA(); if(a.validated||k<0||k>3) return;
+  a.picked=k;
+  Array.prototype.forEach.call(app.querySelectorAll('.opt'),function(el){
+    var on = parseInt(el.getAttribute('data-k'),10)===k;
+    el.classList.toggle('sel',on);
+    el.querySelector('input').checked = on;
+  });
+  var v=document.getElementById('validate'); if(v) v.disabled=false;
+}
+function showHint(){
+  var a=curA(); if(a.hint||a.validated) return;
+  a.hint=true;
+  var q=Q[curQ()];
+  var box=document.createElement('div');
+  box.className='hint fade'; box.id='hintbox';
+  box.innerHTML='<b>'+ICON.bulb+' Indice</b><p>'+esc(q.hint)+'</p>';
+  var acts=app.querySelector('.actions'); acts.parentNode.insertBefore(box,acts);
+  var h=document.getElementById('hintbtn'); h.disabled=true; h.innerHTML=ICON.bulb+' Indice affiché';
+}
+function validate(){
+  var a=curA(), q=Q[curQ()];
+  if(a.validated||a.picked===null) return;
+  a.validated=true; a.correct=(a.order[a.picked]===q.a);
+  renderQuestion(false);
+}
+function next(){
+  if(state.pos<state.order.length-1){state.pos++;renderQuestion(true);}
+  else{renderResults();}
+}
+
+/* ---------- Résultats ---------- */
+function renderResults(){
+  state.view='results';
+  var total=state.order.length, good=0, noHint=0, hints=0, wrongIdx=[];
+  var groups=[],gstat={};
+  state.order.forEach(function(qi){
+    var a=state.answers[qi], q=Q[qi];
+    if(!gstat[q.g]){gstat[q.g]={t:0,g:0};groups.push(q.g);}
+    gstat[q.g].t++;
+    if(a.hint) hints++;
+    if(a.correct){good++;gstat[q.g].g++; if(!a.hint) noHint++;} else wrongIdx.push(qi);
+  });
+  var ratio=good/total, msg;
+  if(ratio===1) msg='Sans faute : tu maîtrises très bien ces chapitres.';
+  else if(ratio>=0.8) msg='Très bon résultat. Relis les explications des questions manquées pour consolider.';
+  else if(ratio>=0.6) msg='Bon début. Reprends les passages liés aux questions manquées, puis refais le QCM.';
+  else if(ratio>=0.4) msg='Il reste du travail : relis les chapitres signalés ci-dessous, puis retente ta chance.';
+  else msg='Pas de panique : une relecture attentive des chapitres, et tu feras beaucoup mieux au prochain essai.';
+
+  var bars=groups.map(function(g){
+    var s=gstat[g], p=Math.round(s.g/s.t*100);
+    return '<div class="grp"><span>'+esc(g)+'</span><div class="gb" aria-hidden="true"><i style="width:'+p+'%"></i></div><span class="gn">'+s.g+' / '+s.t+'</span></div>';
+  }).join('');
+
+  var review=state.order.map(function(qi,n){
+    var a=state.answers[qi], q=Q[qi], ok=a.correct;
+    var yours=q.opts[a.order[a.picked]], goodTxt=q.opts[q.a];
+    return '<details'+(ok?'':' open')+'><summary><span class="ico '+(ok?'ok':'bad')+'">'+(ok?ICON.check:ICON.cross)+'</span>'+
+      '<span><span class="lbl">'+esc(q.g)+(q.ref?' · '+esc(q.ref):'')+' · '+(ok?'réussie':'à revoir')+(a.hint?' · indice utilisé':'')+'</span>'+(n+1)+'. '+esc(q.q)+'</span></summary>'+
+      '<div class="rb">'+
+        (ok?'':'<p><span class="lbl">Ta réponse</span>'+esc(yours)+'</p>')+
+        '<p><span class="lbl">Bonne réponse</span>'+esc(goodTxt)+'</p>'+
+        '<p>'+esc(q.exp)+'</p></div></details>';
+  }).join('');
+
+  app.innerHTML =
+   '<section class="card res fade">'+
+     '<h2 id="rt" tabindex="-1" style="outline:none">Ton résultat</h2>'+
+     '<div class="score">'+good+' <small>/ '+total+'</small></div>'+
+     '<p class="msg">'+esc(msg)+'</p>'+
+     '<div class="stats">'+
+       '<div class="stat"><b>'+good+'</b><span>bonnes réponses</span></div>'+
+       '<div class="stat"><b>'+noHint+'</b><span>réussies sans indice</span></div>'+
+       '<div class="stat"><b>'+hints+'</b><span>'+(hints>1?'indices utilisés':'indice utilisé')+'</span></div>'+
+     '</div>'+
+     '<h3>Bilan par thème</h3>'+bars+
+     '<div class="review"><h3 style="margin-top:18px">Correction détaillée</h3>'+review+'</div>'+
+     '<div class="actions">'+
+       (wrongIdx.length?'<button class="btn ghost" id="redo" type="button">Refaire les '+wrongIdx.length+' question'+(wrongIdx.length>1?'s':'')+' manquée'+(wrongIdx.length>1?'s':'')+'</button>':'')+
+       '<button class="btn primary" id="restart" type="button">Recommencer le QCM</button>'+
+     '</div>'+
+   '</section>';
+  document.getElementById('restart').addEventListener('click',function(){state=newState();state.view='question';renderQuestion(true);});
+  var r=document.getElementById('redo');
+  if(r) r.addEventListener('click',function(){state=newState(wrongIdx);state.view='question';renderQuestion(true);});
+  toTop(); document.getElementById('rt').focus({preventScroll:true});
+}
+
+/* ---------- Clavier ---------- */
+document.addEventListener('keydown',function(e){
+  if(e.ctrlKey||e.metaKey||e.altKey||state.view!=='question') return;
+  var a=curA(), k=(e.key||'').toLowerCase();
+  if(!a.validated && k.length===1){
+    var idx='1234'.indexOf(k); if(idx<0) idx='abcd'.indexOf(k);
+    if(idx>=0){e.preventDefault();select(idx);return;}
+    if(k==='h'){e.preventDefault();showHint();return;}
+  }
+  if(e.key==='Enter'){
+    var t=e.target; if(t && t.closest && t.closest('button,summary,a')) return;
+    e.preventDefault();
+    if(a.validated) next(); else if(a.picked!==null) validate();
+  }
+});
+
+state=newState();
+renderIntro();
+})();
+</script>
+</body>
+</html>
